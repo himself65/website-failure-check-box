@@ -1,4 +1,5 @@
 const axios = require('axios')
+const signale = require('signale')
 
 exports.mustExist = (value, name = value) => {
   if (!value) {
@@ -14,6 +15,7 @@ exports.checkWebsiteExist = async (site) => {
   for (let i = 0; i < 3; i++) {
     // tip: check 3 times
     exist |= await axios.get(site).then(response => response.status !== 404)
+      .catch(error => signale.error(error))
   }
   return exist
 }

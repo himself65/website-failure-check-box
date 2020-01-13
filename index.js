@@ -1,4 +1,5 @@
 require('dotenv').config()
+const signale = require('signale')
 const moment = require('moment')
 const { mustExist, checkWebsiteExist } = require('./utils')
 const Octokit = require('@octokit/rest')
@@ -18,11 +19,14 @@ const {
 const octokit = new Octokit({ auth: `token ${githubToken}` })
 
 ;(async () => {
+  signale.pending('Fetching gists...')
   const gist = await octokit.gists.get({ gist_id: gistID })
     .catch(error => { throw new Error(`Unable to get gist\n${error}`) })
   const sites = targets.split(',')
   const lines = []
-  for (const site in sites) {
+  for (const key in sites) {
+    const site = sites[key]
+    signale.watch(`Checking site: ${site}...`)
     const exist = await checkWebsiteExist(site)
     if (exist) {
       lines.push(`${site} haven't shut down now...`)
@@ -33,6 +37,7 @@ const octokit = new Octokit({ auth: `token ${githubToken}` })
   lines.push(`Update at ${moment().format('dddd, MMMM Do YYYY, k:mm:ss Z')}`)
   try {
     const fileName = Object.keys(gist.data.files)[0]
+    signale.pending('Upload new gist content...')
     await octokit.gists.update({
       gist_id: gistID,
       files: {
@@ -44,5 +49,7 @@ const octokit = new Octokit({ auth: `token ${githubToken}` })
     })
   } catch (error) {
     throw Error('Cannot update gist')
+  } finally {
+    signale.success('Done!')
   }
 })()
