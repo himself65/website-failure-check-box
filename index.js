@@ -1,7 +1,4 @@
-if (!process.env.CI) {
-  // dont load .env file on CI mode
-  require('dotenv').config()
-}
+require('dotenv').config()
 const signale = require('signale')
 const moment = require('moment')
 const { mustExist, checkWebsiteExist } = require('./utils')
