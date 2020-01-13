@@ -1,0 +1,30 @@
+{
+  "name": "website-failure-check-box",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "himself65",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Himself65/website-failure-check-box.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "jest -i"
+  },
+  "dependencies": {
+    "@octokit/rest": "16.36.0",
+    "axios": "0.19.0",
+    "dotenv": "^8.2.0",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "@octokit/types": "^2.0.2",
+    "@types/jest": "^24.0.25",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^13.1.6",
+    "@zeit/ncc": "0.20.5",
+    "jest": "^24.9.0",
+    "standard": "^14.3.1"
+  },
+  "private": true
+}
