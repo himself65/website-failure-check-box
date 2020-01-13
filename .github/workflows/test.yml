@@ -26,3 +26,5 @@ jobs:
           yarn test
         env:
           CI: true
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIST_ID: 68d7d8edbb14a8769d8021cc9513ba80

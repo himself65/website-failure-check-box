@@ -1,4 +1,7 @@
-require('dotenv').config()
+if (!process.env.CI) {
+  // dont load .env file on CI mode
+  require('dotenv').config()
+}
 const signale = require('signale')
 const moment = require('moment')
 const { mustExist, checkWebsiteExist } = require('./utils')
@@ -8,15 +11,15 @@ const {
   GIST_ID: gistID,
   GH_TOKEN: githubToken,
   LISTENED_WEBSITES: targets
-} = process.env;
+} = process.env
 
-[
+const octokit = new Octokit({ auth: `token ${githubToken}` })
+
+;[
   [gistID, 'GIST_ID'],
   [githubToken, 'GH_TOKEN'],
   [targets, 'LISTEN_WEBSITE']
 ].forEach(([v, n]) => mustExist(v, n))
-
-const octokit = new Octokit({ auth: `token ${githubToken}` })
 
 ;(async () => {
   signale.pending('Fetching gists...')
@@ -35,6 +38,10 @@ const octokit = new Octokit({ auth: `token ${githubToken}` })
     }
   }
   lines.push(`Update at ${moment().format('dddd, MMMM Do YYYY, k:mm:ss Z')}`)
+  if (process.env.CI) {
+    signale.complete('Done on CI.')
+    process.exit(0)
+  }
   try {
     const fileName = Object.keys(gist.data.files)[0]
     signale.pending('Upload new gist content...')
