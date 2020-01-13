@@ -1,0 +1,32 @@
+name: Did following websites shut down
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+
+jobs:
+  checker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Cache NPM dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+      - name: Install Dependencies
+        run: |
+          npm install -g yarn
+          yarn --frozen-lockfile --non-interactive
+      - name: Run Script
+        run: |
+          node index.js
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIST_ID: 68d7d8edbb14a8769d8021cc9513ba80
+          LISTENED_WEBSITES: https://zhihu.com,https://baidu.com
