@@ -13,7 +13,7 @@
 
 1. Fork this repo
 2. Edit the 
-[environment variable](https://github.com/Himself65/website-failure-check-box/blob/master/github/workflows/checker.yml#L29-L32)
+[environment variable](https://github.com/Himself65/website-failure-check-box/blob/master/.github/workflows/checker.yml#L29-L32)
 in `.github/workflows/checker.yml`:
     - **GIST_ID**: The ID portion from your gist url: `https://gist.github.com/himself65/`**`68d7d8edbb14a8769d8021cc9513ba80`**.
     - **LISTENED_WEBSITES**: The website you want to monitor.
