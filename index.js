@@ -35,10 +35,6 @@ const octokit = new Octokit({ auth: `token ${githubToken}` })
     }
   }
   lines.push(`Update at ${moment().format('dddd, MMMM Do YYYY, k:mm:ss Z')}`)
-  if (process.env.CI) {
-    signale.complete('Done on CI.')
-    process.exit(0)
-  }
   try {
     const fileName = Object.keys(gist.data.files)[0]
     signale.pending('Upload new gist content...')
