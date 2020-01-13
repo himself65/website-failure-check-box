@@ -6,7 +6,7 @@ const Octokit = require('@octokit/rest')
 const {
   GIST_ID: gistID,
   GH_TOKEN: githubToken,
-  LISTEN_WEBSITES: targets
+  LISTENED_WEBSITES: targets
 } = process.env;
 
 [
