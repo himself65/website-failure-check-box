@@ -15,7 +15,7 @@
     "@octokit/rest": "16.36.0",
     "axios": "0.19.0",
     "dotenv": "^8.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "signale": "^1.4.0"
   },
   "devDependencies": {
